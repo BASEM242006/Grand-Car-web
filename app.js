@@ -164,8 +164,9 @@ function initGallery() {
       const filter = btn.getAttribute('data-filter');
 
       galleryItems.forEach(item => {
-        const category = item.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
+        const category = item.getAttribute('data-category') || '';
+        const categories = category.split(' ');
+        if (filter === 'all' || categories.includes(filter)) {
           item.style.display = 'block';
           item.style.animation = 'fadeIn 0.4s ease forwards';
         } else {
@@ -186,38 +187,68 @@ function initLightbox() {
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxPrev = document.getElementById('lightboxPrev');
   const lightboxNext = document.getElementById('lightboxNext');
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
 
+  let currentVisibleItems = [];
   let currentIndex = 0;
 
+  function updateVisibleItems() {
+    currentVisibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(
+      item => item.style.display !== 'none'
+    );
+    if (currentVisibleItems.length === 0) {
+      currentVisibleItems = Array.from(document.querySelectorAll('.gallery-item'));
+    }
+  }
+
   function showImage(index) {
-    if (galleryItems.length === 0) return;
-    if (index < 0) index = galleryItems.length - 1;
-    if (index >= galleryItems.length) index = 0;
+    updateVisibleItems();
+    if (currentVisibleItems.length === 0) return;
+
+    if (index < 0) index = currentVisibleItems.length - 1;
+    if (index >= currentVisibleItems.length) index = 0;
 
     currentIndex = index;
-    const item = galleryItems[currentIndex];
+    const item = currentVisibleItems[currentIndex];
     const img = item.querySelector('img');
-    const title = item.querySelector('.gallery-item-title')?.textContent || '';
+    const title = item.querySelector('.gallery-item-title')?.textContent.trim() || '';
+    const tag = item.querySelector('.gallery-item-tag')?.textContent.trim() || '';
+    const car = item.querySelector('.gallery-item-car')?.textContent.trim() || '';
 
     if (lightboxImg && img) {
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt || title;
     }
+
     if (lightboxCaption) {
-      lightboxCaption.textContent = title;
+      const waMsg = encodeURIComponent(`مرحباً مركز جراند كار، رأيت في معرض أعمالكم صورة (${car} - ${title}) وأود الاستفسار عن إمكانية إصلاح سيارتي.`);
+      lightboxCaption.innerHTML = `
+        ${car ? `<span style="background:rgba(255,255,255,0.15); color:#fff; padding:3px 12px; border-radius:20px; font-size:0.8rem;">${car}</span>` : ''}
+        <strong style="font-size:1.15rem; color:#fff; display:block;">${title}</strong>
+        ${tag ? `<span style="display:block; color:var(--accent-glow); font-size:0.9rem;">${tag}</span>` : ''}
+        <a href="https://wa.me/966500818192?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="lightbox-cta-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+          <span>استفسر عن إصلاح مثل هذه الحالة على واتساب</span>
+        </a>
+      `;
     }
   }
 
-  galleryItems.forEach((item, idx) => {
-    item.addEventListener('click', () => {
-      showImage(idx);
-      lightbox?.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
+  // Delegated click listener on gallery items
+  document.addEventListener('click', (e) => {
+    const galleryItem = e.target.closest('.gallery-item');
+    if (galleryItem) {
+      updateVisibleItems();
+      const idx = currentVisibleItems.indexOf(galleryItem);
+      if (idx !== -1) {
+        showImage(idx);
+        lightbox?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
   });
 
   function closeLightbox() {
+    lightbox?.classList.remove('open');
     lightbox?.classList.remove('active');
     document.body.style.overflow = '';
   }
