@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم المدير | جراند كار</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div id="loginPage">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h1>GRAND <span>CAR</span></h1>
+      <p>بوابة الإدارة والتحكم</p>
+      <span class="login-badge">ADMIN PORTAL</span>
+    </div>
+    <form class="login-form" id="loginForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="adminUser">البريد الإلكتروني / اسم المستخدم</label>
+        <div class="input-wrapper">
+          <input type="text" id="adminUser" class="form-input" placeholder="أدخل اسم المستخدم" required>
+          <span class="input-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="adminPass">كلمة المرور</label>
+        <div class="input-wrapper">
+          <input type="password" id="adminPass" class="form-input" placeholder="أدخل كلمة المرور" required>
+          <span class="input-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <button type="button" class="pw-toggle" id="pwToggle"><svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+      </div>
+      <div class="login-error" id="loginError">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <span id="errorMsg">بيانات الدخول غير صحيحة</span>
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn">
+        <span class="btn-text">دخول إلى لوحة التحكم</span>
+        <div class="spinner"></div>
+      </button>
+      <p class="login-footer-note">🔒 هذه الصفحة مخصصة للمسؤولين فقط</p>
+    </form>
+  </div>
+</div>
+<div id="adminDashboard">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+      </div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">GRAND <span>CAR</span></div>
+        <div class="sidebar-brand-sub">لوحة التحكم الإدارية</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">الرئيسية</div>
+      <div class="sidebar-link active" data-page="overview" onclick="showPage('overview',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        نظرة عامة
+      </div>
+      <div class="sidebar-nav-section">إدارة المحتوى</div>
+      <div class="sidebar-link" data-page="requests" onclick="showPage('requests',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        طلبات العملاء <span class="badge">5</span>
+      </div>
+      <div class="sidebar-link" data-page="gallery" onclick="showPage('gallery',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        معرض الأعمال
+      </div>
+      <div class="sidebar-link" data-page="reviews" onclick="showPage('reviews',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        آراء العملاء
+      </div>
+      <div class="sidebar-nav-section">الإعدادات</div>
+      <div class="sidebar-link" data-page="settings" onclick="showPage('settings',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41"/></svg>
+        إعدادات الموقع
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="admin-profile">
+        <div class="admin-avatar" id="adminInitials">AD</div>
+        <div class="admin-profile-info">
+          <div class="admin-profile-name" id="adminNameDisplay">المدير</div>
+          <div class="admin-profile-role">مدير النظام</div>
+        </div>
+        <button class="btn-logout" onclick="logout()" title="تسجيل الخروج">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">نظرة عامة</div>
+      <div class="topbar-right">
+        <div class="topbar-time" id="topbarTime"></div>
+        <div class="status-dot">متصل</div>
+        <a href="index.html" class="site-link" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          الموقع
+        </a>
+      </div>
+    </div>
+    <!-- OVERVIEW PAGE -->
+    <div class="dash-page active" id="page-overview">
+      <div class="section-header">
+        <div><div class="section-title">مرحباً بك في لوحة التحكم 👋</div><div class="section-sub">إليك ملخص نشاط موقع جراند كار</div></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card gold">
+          <div class="stat-header"><div class="stat-icon gold"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span class="stat-change up">↑ 12%</span></div>
+          <div class="stat-value">248</div><div class="stat-label">إجمالي الزيارات هذا الشهر</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-header"><div class="stat-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="stat-change up">↑ 5</span></div>
+          <div class="stat-value">18</div><div class="stat-label">طلبات تقدير جديدة</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-header"><div class="stat-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><span class="stat-change up">↑ 3</span></div>
+          <div class="stat-value">42</div><div class="stat-label">طلبات مكتملة</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-header"><div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="stat-change up">↑ 2</span></div>
+          <div class="stat-value">31</div><div class="stat-label">تقييمات العملاء</div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">آخر الطلبات الواردة</div>
+          <button class="btn-sm" onclick="showPage('requests',document.querySelector('[data-page=requests]'))">عرض الكل</button>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>اسم العميل</th><th>نوع الخدمة</th><th>الهاتف</th><th>الحالة</th><th>التاريخ</th></tr></thead>
+          <tbody>
+            <tr><td>001</td><td class="td-name">أحمد محمد العتيبي</td><td>شفط طعجات PDR</td><td dir="ltr">0501234567</td><td><span class="badge-status new">جديد</span></td><td>2026-08-26</td></tr>
+            <tr><td>002</td><td class="td-name">فهد سالم القحطاني</td><td>دهان كروماكس</td><td dir="ltr">0559876543</td><td><span class="badge-status process">جارٍ</span></td><td>2026-08-25</td></tr>
+            <tr><td>003</td><td class="td-name">سعد عبدالله الدوسري</td><td>إصلاح ضربات البرد</td><td dir="ltr">0537654321</td><td><span class="badge-status done">مكتمل</span></td><td>2026-08-24</td></tr>
+            <tr><td>004</td><td class="td-name">عبدالرحمن المطيري</td><td>سمكرة وهيكل</td><td dir="ltr">0567891234</td><td><span class="badge-status new">جديد</span></td><td>2026-08-24</td></tr>
+            <tr><td>005</td><td class="td-name">محمد إبراهيم الشهري</td><td>شفط طعجات PDR</td><td dir="ltr">0512345678</td><td><span class="badge-status process">جارٍ</span></td><td>2026-08-23</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REQUESTS PAGE -->
+    <div class="dash-page" id="page-requests">
+      <div class="section-header"><div><div class="section-title">طلبات العملاء</div><div class="section-sub">إدارة وتتبع طلبات تقدير الأسعار</div></div></div>
+      <div class="table-card">
+        <div class="table-header"><div class="table-title">جميع الطلبات (18)</div><button class="btn-sm">تصدير CSV</button></div>
+        <table>
+          <thead><tr><th>#</th><th>اسم العميل</th><th>نوع الخدمة</th><th>الهاتف</th><th>السيارة</th><th>الحالة</th><th>التاريخ</th><th>إجراءات</th></tr></thead>
+          <tbody>
+            <tr><td>001</td><td class="td-name">أحمد محمد العتيبي</td><td>شفط طعجات PDR</td><td dir="ltr">0501234567</td><td>تويوتا كامري 2023</td><td><span class="badge-status new">جديد</span></td><td>2026-08-26</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف الطلب','error')">حذف</button></td></tr>
+            <tr><td>002</td><td class="td-name">فهد سالم القحطاني</td><td>دهان كروماكس</td><td dir="ltr">0559876543</td><td>لكزس IS 2022</td><td><span class="badge-status process">جارٍ</span></td><td>2026-08-25</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف الطلب','error')">حذف</button></td></tr>
+            <tr><td>003</td><td class="td-name">سعد عبدالله الدوسري</td><td>إصلاح ضربات البرد</td><td dir="ltr">0537654321</td><td>BMW X5 2024</td><td><span class="badge-status done">مكتمل</span></td><td>2026-08-24</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف الطلب','error')">حذف</button></td></tr>
+            <tr><td>004</td><td class="td-name">عبدالرحمن المطيري</td><td>سمكرة وهيكل</td><td dir="ltr">0567891234</td><td>مرسيدس E200 2021</td><td><span class="badge-status new">جديد</span></td><td>2026-08-24</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف الطلب','error')">حذف</button></td></tr>
+            <tr><td>005</td><td class="td-name">محمد إبراهيم الشهري</td><td>شفط طعجات PDR</td><td dir="ltr">0512345678</td><td>كيا ستينجر 2023</td><td><span class="badge-status process">جارٍ</span></td><td>2026-08-23</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف الطلب','error')">حذف</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GALLERY PAGE -->
+    <div class="dash-page" id="page-gallery">
+      <div class="section-header">
+        <div><div class="section-title">إدارة معرض الأعمال</div><div class="section-sub">رفع وتنظيم صور قبل وبعد الإصلاح</div></div>
+        <button class="btn-sm" onclick="showToast('ميزة رفع الصور قريباً','success')">+ رفع صورة جديدة</button>
+      </div>
+      <div class="table-card" style="padding:60px;text-align:center">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--text-muted);margin:0 auto 16px;display:block"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <div style="color:var(--text-muted);font-size:0.9rem">استخدم زر رفع صورة جديدة لإضافة صور قبل/بعد إلى معرض الأعمال</div>
+      </div>
+    </div>
+
+    <!-- REVIEWS PAGE -->
+    <div class="dash-page" id="page-reviews">
+      <div class="section-header"><div><div class="section-title">إدارة آراء العملاء</div><div class="section-sub">مراجعة وإدارة تقييمات العملاء</div></div></div>
+      <div class="table-card">
+        <div class="table-header"><div class="table-title">التقييمات (31)</div></div>
+        <table>
+          <thead><tr><th>العميل</th><th>التقييم</th><th>التعليق</th><th>التاريخ</th><th>إجراءات</th></tr></thead>
+          <tbody>
+            <tr><td class="td-name">محمد الحربي</td><td style="color:var(--accent-glow)">★★★★★</td><td>خدمة ممتازة جداً، شغل احترافي</td><td>2026-08-20</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف التعليق','error')">حذف</button></td></tr>
+            <tr><td class="td-name">عبدالله الغامدي</td><td style="color:var(--accent-glow)">★★★★★</td><td>أفضل مركز PDR في الرياض</td><td>2026-08-18</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف التعليق','error')">حذف</button></td></tr>
+            <tr><td class="td-name">فيصل الزهراني</td><td style="color:var(--accent-glow)">★★★★☆</td><td>نتيجة رائعة ووقت سريع</td><td>2026-08-15</td><td><button class="btn-sm btn-danger-sm" onclick="showToast('تم حذف التعليق','error')">حذف</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="dash-page" id="page-settings">
+      <div class="section-header"><div><div class="section-title">إعدادات الموقع</div><div class="section-sub">تحديث بيانات المركز وإعدادات الاتصال</div></div></div>
+      <div class="settings-grid">
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="settings-card-title">معلومات التواصل</div>
+          </div>
+          <div class="settings-card-body">
+            <div class="settings-field"><label class="settings-label">رقم الهاتف</label><input type="tel" class="settings-input" value="0500818192" dir="ltr"></div>
+            <div class="settings-field"><label class="settings-label">رابط واتساب</label><input type="text" class="settings-input" value="https://wa.me/966500818192" dir="ltr"></div>
+            <div class="settings-field"><label class="settings-label">عنوان المركز</label><input type="text" class="settings-input" value="الرياض - طريق خريص، مجمع المرابحون"></div>
+            <button class="btn-save" onclick="showToast('تم حفظ معلومات التواصل','success')">حفظ التغييرات</button>
+          </div>
+        </div>
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="settings-card-title">حساب المدير</div>
+          </div>
+          <div class="settings-card-body">
+            <div class="settings-field"><label class="settings-label">اسم المستخدم</label><input type="text" class="settings-input" value="mabonoor2016@gmail.com" dir="ltr"></div>
+            <div class="settings-field"><label class="settings-label">كلمة المرور الجديدة</label><input type="password" class="settings-input" placeholder="اتركه فارغاً للإبقاء على نفس كلمة المرور"></div>
+            <button class="btn-save" onclick="showToast('تم تحديث بيانات الحساب','success')">تحديث الحساب</button>
+          </div>
+        </div>
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="settings-card-title">ساعات العمل</div>
+          </div>
+          <div class="settings-card-body">
+            <div class="settings-field"><label class="settings-label">السبت - الخميس</label><input type="text" class="settings-input" value="8:00 ص - 10:00 م"></div>
+            <div class="settings-field"><label class="settings-label">الجمعة</label><input type="text" class="settings-input" value="4:00 م - 10:00 م"></div>
+            <button class="btn-save" onclick="showToast('تم حفظ ساعات العمل','success')">حفظ التغييرات</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<button class="sidebar-mobile-toggle" id="sidebarToggle" onclick="toggleMobileSidebar()" style="display:none">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
+<div class="toast" id="toast">
+  <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg">تم الحفظ بنجاح</span>
+</div>
+
+<script>
+const ADMIN_USER='mabonoor2016@gmail.com',ADMIN_PASS='Aa@0108239482';
+const loginForm=document.getElementById('loginForm'),loginError=document.getElementById('loginError'),loginBtn=document.getElementById('loginBtn'),pwToggle=document.getElementById('pwToggle'),passInput=document.getElementById('adminPass'),eyeIcon=document.getElementById('eyeIcon');
+pwToggle.addEventListener('click',()=>{const h=passInput.type==='password';passInput.type=h?'text':'password';eyeIcon.innerHTML=h?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>':'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';});
+loginForm.addEventListener('submit',e=>{e.preventDefault();const u=document.getElementById('adminUser').value.trim(),p=passInput.value;loginBtn.classList.add('loading');loginError.classList.remove('show');setTimeout(()=>{loginBtn.classList.remove('loading');u===ADMIN_USER&&p===ADMIN_PASS?enterDashboard(u):(loginError.classList.add('show'),document.getElementById('errorMsg').textContent='بيانات الدخول غير صحيحة، يرجى المراجعة');},900);});
+function enterDashboard(u){document.getElementById('loginPage').style.display='none';document.getElementById('adminDashboard').style.display='flex';const s=u.split('@')[0];document.getElementById('adminNameDisplay').textContent=s;document.getElementById('adminInitials').textContent=s.slice(0,2).toUpperCase();if(window.innerWidth<=900)document.getElementById('sidebarToggle').style.display='flex';startClock();}
+function logout(){document.getElementById('adminDashboard').style.display='none';document.getElementById('loginPage').style.display='flex';loginForm.reset();loginError.classList.remove('show');}
+const titles={overview:'نظرة عامة',requests:'طلبات العملاء',gallery:'معرض الأعمال',reviews:'آراء العملاء',settings:'إعدادات الموقع'};
+function showPage(id,el){document.querySelectorAll('.dash-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));document.getElementById('page-'+id)?.classList.add('active');el?.classList.add('active');document.getElementById('pageTitle').textContent=titles[id]||'';closeMobileSidebar();}
+const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('sidebarOverlay');
+function toggleMobileSidebar(){sidebar.classList.toggle('mobile-open');overlay.classList.toggle('show');}
+function closeMobileSidebar(){sidebar.classList.remove('mobile-open');overlay.classList.remove('show');}
+overlay.addEventListener('click',closeMobileSidebar);
+window.addEventListener('resize',()=>{const b=document.getElementById('sidebarToggle');if(window.innerWidth>900){b.style.display='none';closeMobileSidebar();}else if(document.getElementById('adminDashboard').style.display!=='none')b.style.display='flex';});
+function startClock(){const t=()=>{document.getElementById('topbarTime').textContent=new Date().toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});};t();setInterval(t,1000);}
+let tTimer;
+function showToast(msg,type='success'){const t=document.getElementById('toast'),ic=t.querySelector('.toast-icon');t.className='toast '+type;document.getElementById('toastMsg').textContent=msg;ic.innerHTML=type==='success'?'<polyline points="20 6 9 17 4 12"/>':'<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>';t.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(()=>t.classList.remove('show'),3000);}
+</script>
+</body>
+</html>
